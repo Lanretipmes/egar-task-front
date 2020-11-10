@@ -20,7 +20,7 @@ const FocusableCell = ({ onClick, row, ...restProps}) => (
     <Table.Cell {...restProps} tabIndex={0} onFocus={onClick} />
 );
 
-export default (props) => {
+const SecurityTable = (props) => {
     const [open, setOpen] = useState(false);
 
     const [newDate, setNewDate] = useState("");
@@ -50,18 +50,19 @@ export default (props) => {
     const data = props.data;
 
     const [editingRowIds, setEditingRowIds] = useState([]);
-    const [addedRows, setAddedRows] = useState([]);
+    const [addedRows] = useState([]);
     const [rowChanges, setRowChanges] = useState({});
     const [deletedRowIds, setDeletedRowIds] = useState([]);
+    const [editingStateColumnExtensions] = useState([
+        { columnName: 'id', editingEnabled: false },
+    ]);
 
 
     const commitChanges = ({changed, deleted }) => {
         let selectedRow;
         if (changed){
             data.filter(row => row.id === editingRowIds[0]).forEach(row => selectedRow = row);
-            console.log(selectedRow);
             selectedRow = {...selectedRow, ...rowChanges[editingRowIds[0]]};
-            console.log(selectedRow);
             props.updateRow(selectedRow);
         }
         if (deleted){
@@ -72,9 +73,10 @@ export default (props) => {
     };
 
     const onApply = () => {
-        let newRow = {...{date: newDate}, ...{name: newSecurity}, ...{cost: newCost}};
-        props.addRow(newRow);
-
+        if (newDate !== "" && newSecurity !== "" && newCost !== "") {
+            let newRow = {date: newDate, name: newSecurity, cost: newCost};
+            props.addRow(newRow);
+        }
         setOpen(false);
     };
 
@@ -96,6 +98,8 @@ export default (props) => {
                             name="date"
                             label="Date"
                             value={newDate}
+                            type="date"
+                            InputLabelProps={{ shrink: true }}
                             onChange={handleDateChange}
                         />
                         <TextField
@@ -103,6 +107,7 @@ export default (props) => {
                             name="security"
                             label="Security"
                             value={newSecurity}
+                            InputLabelProps={{ shrink: true }}
                             onChange={handleSecurityChange}
                         />
                         <TextField
@@ -110,11 +115,14 @@ export default (props) => {
                             name="cost"
                             label="Cost"
                             value={newCost}
+                            type="number"
+                            InputLabelProps={{ shrink: true }}
                             onChange={handleCostChange}
                         />
                     </DialogContent>
                     <DialogActions>
-                        <Button onClick={onApply}>Apply</Button>
+                        <Button onClick={onApply}>Add security</Button>
+                        <Button onClick={handleClose}>Cancel</Button>
                     </DialogActions>
                 </Dialog>
             </div>
@@ -133,8 +141,7 @@ export default (props) => {
                     onEditingRowIdsChange={setEditingRowIds}
                     deletedRowIds={deletedRowIds}
                     onDeletedRowIdsChange={setDeletedRowIds}
-                    // editingCells={editingCells}
-                    // onEditingCellsChange={setEditingCells}
+                    columnExtensions={editingStateColumnExtensions}
                 />
                 <Table cellComponent={FocusableCell}/>
                 <TableHeaderRow/>
@@ -149,4 +156,4 @@ export default (props) => {
         )
 }
 
-
+export default SecurityTable;

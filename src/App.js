@@ -2,6 +2,8 @@ import './App.css';
 import React, {Component} from "react";
 import SecurityTable from "./SecurityTable";
 import Graph from "./Graph";
+import AppBar from "@material-ui/core/AppBar";
+import Typography from "@material-ui/core/Typography";
 
 class App extends Component {
 
@@ -88,14 +90,38 @@ class App extends Component {
 
   render() {
 
-      const {isLoaded, items, config} = this.state;
+      const {isLoaded, items} = this.state;
+
+      const divStyle = {
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center'
+      };
+
+      const imgStyle = {
+          width: '450px',
+          alt: 'pic'
+
+      };
 
       if (!isLoaded) {
-        return <div>loading</div>;
+        return (
+            <div style={divStyle}>
+                <img
+                    style={imgStyle} src="https://42f2671d685f51e10fc6-b9fcecea3e50b3b59bdc28dead054ebc.ssl.cf5.rackcdn.com/illustrations/synchronize_ccxk.svg" alt={'pic'}/>
+                <h3>Loading Data...</h3>
+                <h4>If it takes too long, you should check your backend app</h4>
+            </div>
+        )
     }
     else {
       return (
           <div className="App">
+              <AppBar position="static">
+                  <Typography variant="h6">
+                      Security Data Table
+                  </Typography>
+              </AppBar>
               <SecurityTable data={items} addRow={this.addRow} updateRow={this.updateRow} deleteRow={this.deleteRow}/>
               <Graph data={items}/>
           </div>
