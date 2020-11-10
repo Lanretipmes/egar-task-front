@@ -2,13 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8cb1ea49-f4fb-4609-8a60-653d80b269df" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/SecurityTable.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/SecurityTable.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -70,6 +68,16 @@
       <method v="2" />
     </configuration>
   </component>
+  <component name="ServiceViewManager">
+    <option name="allServicesViewState">
+      <serviceView>
+        <treeState>
+          <expand />
+          <select />
+        </treeState>
+      </serviceView>
+    </option>
+  </component>
   <component name="SvnConfiguration">
     <configuration />
   </component>
@@ -83,8 +91,23 @@
       <workItem from="1604679564091" duration="845000" />
       <workItem from="1604750369963" duration="478000" />
       <workItem from="1604750929919" duration="4714000" />
-      <workItem from="1604764474916" duration="12669000" />
+      <workItem from="1604764474916" duration="12820000" />
+      <workItem from="1604852449458" duration="2490000" />
+      <workItem from="1604860597268" duration="4032000" />
+      <workItem from="1604864769047" duration="3549000" />
+      <workItem from="1604918768690" duration="6860000" />
+      <workItem from="1604927714273" duration="20358000" />
+      <workItem from="1605009373937" duration="7118000" />
+      <workItem from="1605025414467" duration="7035000" />
     </task>
+    <task id="LOCAL-00001" summary="I'm really trying">
+      <created>1604784848647</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1604784848647</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -102,5 +125,9 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="I'm really trying" />
+    <option name="LAST_COMMIT_MESSAGE" value="I'm really trying" />
   </component>
 </project>

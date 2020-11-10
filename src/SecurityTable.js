@@ -1,100 +1,152 @@
 import React, {useState} from 'react';
 import Paper from '@material-ui/core/Paper';
+import { EditingState } from '@devexpress/dx-react-grid';
 import {
     Grid,
     Table,
     TableHeaderRow,
-    TableInlineCellEditing,
-    TableSelection, Toolbar
+    TableEditColumn,
+    TableEditRow,
 } from '@devexpress/dx-react-grid-material-ui';
-import {EditingState, SelectionState} from "@devexpress/dx-react-grid";
-import {GridComponent} from "@syncfusion/ej2-react-grids"
-import {Plugin, Template, TemplatePlaceholder} from "@devexpress/dx-react-core";
-import {withStyles} from "@material-ui/core";
+import Button from "@material-ui/core/Button";
+import Dialog from "@material-ui/core/Dialog";
+import DialogContent from "@material-ui/core/DialogContent";
+import TextField from "@material-ui/core/TextField";
+import DialogActions from "@material-ui/core/DialogActions";
 
+const getRowId = row => row.id;
 
-function SecurityTable(props) {
+const FocusableCell = ({ onClick, row, ...restProps}) => (
+    <Table.Cell {...restProps} tabIndex={0} onFocus={onClick} />
+);
 
-    const getRowId = row => row.id;
+export default (props) => {
+    const [open, setOpen] = useState(false);
 
-    const columns = [
-        { name: 'id', title: 'ID' },
-        { name: 'date', title: 'Date' },
-        { name: 'name', title: 'Security' },
-        { name: 'cost', title: 'Cost' },
-    ];
+    const [newDate, setNewDate] = useState("");
+    const [newSecurity, setNewSecurity] = useState("");
+    const [newCost, setNewCost] = useState("");
 
-    const [rows, setRows] = useState(props.data);
-
-    const [startEditAction, setStartEditAction] = useState('click');
-    const [selection, setSelection] = useState([-1]);
-    const [selectTextOnEditStart, setSelectTextOnEditStart] = useState(true);
-
-
-    const EditPropsPanel = props => (
-        <Plugin name="EditPropsPanel">
-            <Template name="toolbarContent">
-                <TemplatePlaceholder/>
-            </Template>
-        </Plugin>
-    );
-
-    const FocusableCell = ({ onClick, ...restProps }) => (
-        <Table.Cell {...restProps} tabIndex={0} onFocus={onClick} />
-    );
-
-    const commitChanges = ({ added, changed, deleted }) => {
-        let changedRows;
-        if (added) {
-            const startingAddedId = rows.length > 0 ? rows[rows.length - 1].id + 1 : 0;
-            changedRows = [
-                ...rows,
-                ...added.map((row, index) => ({
-                    id: startingAddedId + index,
-                    ...row,
-                })),
-            ];
-        }
-        if (changed) {
-            changedRows = rows.map(row => (changed[row.id] ? { ...row, ...changed[row.id] } : row));
-        }
-        if (deleted) {
-            const deletedSet = new Set(deleted);
-            changedRows = rows.filter(row => !deletedSet.has(row.id));
-        }
-        setRows(changedRows);
+    const handleClickOpen = () => {
+        setOpen(true);
     };
 
-    return (
+    const handleClose = () => {
+        setOpen(false);
+    };
+
+    const handleDateChange = (event) => {
+        setNewDate(event.target.value);
+    };
+
+     const handleSecurityChange = (event) => {
+        setNewSecurity(event.target.value);
+    };
+
+     const handleCostChange = (event) => {
+        setNewCost(event.target.value);
+    };
+
+    const data = props.data;
+
+    const [editingRowIds, setEditingRowIds] = useState([]);
+    const [addedRows, setAddedRows] = useState([]);
+    const [rowChanges, setRowChanges] = useState({});
+    const [deletedRowIds, setDeletedRowIds] = useState([]);
+
+
+    const commitChanges = ({changed, deleted }) => {
+        let selectedRow;
+        if (changed){
+            data.filter(row => row.id === editingRowIds[0]).forEach(row => selectedRow = row);
+            console.log(selectedRow);
+            selectedRow = {...selectedRow, ...rowChanges[editingRowIds[0]]};
+            console.log(selectedRow);
+            props.updateRow(selectedRow);
+        }
+        if (deleted){
+            const deletedSet = new Set(deleted);
+            data.filter(row => deletedSet.has(row.id)).forEach(row => selectedRow = row);
+            props.deleteRow(selectedRow);
+        }
+    };
+
+    const onApply = () => {
+        let newRow = {...{date: newDate}, ...{name: newSecurity}, ...{cost: newCost}};
+        props.addRow(newRow);
+
+        setOpen(false);
+    };
+
+
+        const columns = [
+            { name: 'id', title: 'ID' },
+            { name: 'date', title: 'Date' },
+            { name: 'name', title: 'Security' },
+            { name: 'cost', title: 'Cost' },
+        ];
+
+        return (
         <Paper>
+            <div>
+                <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
+                    <DialogContent>
+                        <TextField
+                            margin="normal"
+                            name="date"
+                            label="Date"
+                            value={newDate}
+                            onChange={handleDateChange}
+                        />
+                        <TextField
+                            margin="normal"
+                            name="security"
+                            label="Security"
+                            value={newSecurity}
+                            onChange={handleSecurityChange}
+                        />
+                        <TextField
+                            margin="normal"
+                            name="cost"
+                            label="Cost"
+                            value={newCost}
+                            onChange={handleCostChange}
+                        />
+                    </DialogContent>
+                    <DialogActions>
+                        <Button onClick={onApply}>Apply</Button>
+                    </DialogActions>
+                </Dialog>
+            </div>
             <Grid
                 rows={props.data}
                 columns={columns}
                 getRowId={getRowId}
             >
-                <SelectionState
-                    selection={selection}
-                    onSelectionChange={setSelection}
-                    />
-                <Table />
-                <EditingState onCommitChanges={commitChanges} />
-                <Table cellComponent={FocusableCell} />
-                <TableHeaderRow />
-                <Toolbar />
-                <EditPropsPanel
-                    defaultAction={startEditAction}
-                    changeAction={setStartEditAction}
-                    isSelectText={selectTextOnEditStart}
-                    changeSelectText={setSelectTextOnEditStart}
+                <EditingState
+                    onCommitChanges={commitChanges}
+                    rowChanges={rowChanges}
+                    onRowChangesChange={setRowChanges}
+                    onAddedRowsChange={handleClickOpen}
+                    addedRows={addedRows}
+                    editingRowIds={editingRowIds}
+                    onEditingRowIdsChange={setEditingRowIds}
+                    deletedRowIds={deletedRowIds}
+                    onDeletedRowIdsChange={setDeletedRowIds}
+                    // editingCells={editingCells}
+                    // onEditingCellsChange={setEditingCells}
                 />
-                <TableInlineCellEditing
-                    startEditAction={startEditAction}
-                    selectTextOnEditStart={selectTextOnEditStart}
+                <Table cellComponent={FocusableCell}/>
+                <TableHeaderRow/>
+                <TableEditRow/>
+                <TableEditColumn
+                    showAddCommand
+                    showEditCommand
+                    showDeleteCommand
                 />
             </Grid>
         </Paper>
-    )
+        )
 }
 
-export default SecurityTable;
 
