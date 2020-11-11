@@ -3,10 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="8cb1ea49-f4fb-4609-8a60-653d80b269df" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Graph.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Graph.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App.test.js" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/SecurityTable.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/SecurityTable.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -99,7 +96,8 @@
       <workItem from="1604918768690" duration="6860000" />
       <workItem from="1604927714273" duration="20358000" />
       <workItem from="1605009373937" duration="7118000" />
-      <workItem from="1605025414467" duration="12622000" />
+      <workItem from="1605025414467" duration="14522000" />
+      <workItem from="1605102125388" duration="1610000" />
     </task>
     <task id="LOCAL-00001" summary="I'm really trying">
       <created>1604784848647</created>
@@ -115,7 +113,14 @@
       <option name="project" value="LOCAL" />
       <updated>1605032697284</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="ReFucktoring">
+      <created>1605040640019</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1605040640019</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -137,6 +142,7 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="I'm really trying" />
     <MESSAGE value="Implemented CRUD operations, created graph" />
-    <option name="LAST_COMMIT_MESSAGE" value="Implemented CRUD operations, created graph" />
+    <MESSAGE value="ReFucktoring" />
+    <option name="LAST_COMMIT_MESSAGE" value="ReFucktoring" />
   </component>
 </project>

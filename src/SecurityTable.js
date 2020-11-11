@@ -76,8 +76,9 @@ const SecurityTable = (props) => {
         if (newDate !== "" && newSecurity !== "" && newCost !== "") {
             let newRow = {date: newDate, name: newSecurity, cost: newCost};
             props.addRow(newRow);
+            setOpen(false);
         }
-        setOpen(false);
+        else alert("Incorrect data");
     };
 
 
@@ -154,6 +155,6 @@ const SecurityTable = (props) => {
             </Grid>
         </Paper>
         )
-}
+};
 
 export default SecurityTable;
